@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "370802270163",
+    "project_id": "wastedtalent-f710f",
+    "storage_bucket": "wastedtalent-f710f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370802270163:android:0a247a6242119e68bdd926",
+        "android_client_info": {
+          "package_name": "com.example.wastedtalent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "370802270163-e1f380ec42tfcvs7d5erfch2cgn2ihqi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxFKk-02yPdx_ojo9jXmpe5k3FnORChEw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "370802270163-e1f380ec42tfcvs7d5erfch2cgn2ihqi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "370802270163-q6vagusj0voiokkst14ivso5baanupos.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.wastedtalent"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
