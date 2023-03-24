@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:wastedtalent/widgets/bottom_app_nav.dart';
 
 /*class Profile extends StatefulWidget {
@@ -93,35 +94,59 @@ class ProfileState extends State<Profile> {
                 });
               },child: Text(expand?story:story.substring(0,120)+"...")),
             ),
-            Row(children: [
-              Expanded(
-                child: TextButton(onPressed: (){}, child: Container(
-                  child: Text("Chat"),
-                )),
-              ),
-              Expanded(
-                child: TextButton(onPressed: (){}, child: Container(
-                  child: Text("Show on map"),
-                )),
-              ),
-            ],),
-            // the tab bar with two items
-            SizedBox(
-              height: 75,
-              child: AppBar(
-                bottom: const TabBar(
-                  tabs: [
-                    Tab(
-                      icon: Icon(Icons.directions_bike),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+              child: Row(children: [
+                Expanded(
+                  child: Container(decoration: BoxDecoration(color: Colors.deepPurple,borderRadius: BorderRadius.circular(12)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text("Chat",style: GoogleFonts.metrophobic(color: Colors.white,fontSize: 16),textAlign: TextAlign.center,),
                     ),
-                    Tab(
-                      icon: Icon(
-                        Icons.directions_car,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                Expanded(
+                  child: Container(decoration: BoxDecoration(color: Colors.white70),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text("Show on map",style: GoogleFonts.metrophobic(color: Colors.deepPurple,fontSize: 16),textAlign: TextAlign.center,),
+                    ),
+                  ),
+                ),
+              ],),
+            ),
+            // the tab bar with two items
+            Container(
+              height: 55,
+              child:  PreferredSize(
+                  preferredSize: const TabBar(
+                    tabs: [
+                      Tab(
+                        icon: Icon(Icons.directions_bike),
+                      ),
+                      Tab(
+                        icon: Icon(
+                          Icons.directions_car,
+                        ),
+                      ),
+                    ],
+                  ).preferredSize,
+                  child: Material(color: Colors.deepPurple,
+                    child: const TabBar(
+                      tabs: [
+                        Tab(
+                          icon: Icon(Icons.directions_bike),
+                        ),
+                        Tab(
+                          icon: Icon(
+                            Icons.directions_car,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
             ),
 
             // create widgets for each tab bar here
@@ -133,7 +158,7 @@ class ProfileState extends State<Profile> {
                     color: Colors.red,
                     child: Center(
                       child: Text(
-                        'Bike',
+                        'Selling',
                       ),
                     ),
                   ),
@@ -143,7 +168,7 @@ class ProfileState extends State<Profile> {
                     color: Colors.pink,
                     child: Center(
                       child: Text(
-                        'Car',
+                        'Work',
                       ),
                     ),
                   ),

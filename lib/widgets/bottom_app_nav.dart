@@ -11,8 +11,8 @@ class BottomAppNav extends StatefulWidget {
 }
 
 class _BottomAppNavState extends State<BottomAppNav> {
-  var activeColor = Color(0xffC19280);
-  var color  = Color(0xffF5D3AD);
+  var activeColor = Colors.deepPurple;
+  var color  = Colors.deepPurple[100];
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(

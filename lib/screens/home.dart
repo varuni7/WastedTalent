@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
                             padding: const EdgeInsets.only(left: 18.0),
                             child: Text(
                               'Explore',
-                              style: TextStyle(
+                              style: GoogleFonts.metrophobic(
                                   color: Colors.white,
                                   fontSize: 32,
                                   fontWeight: FontWeight.bold),
@@ -110,7 +110,10 @@ class _HomeState extends State<Home> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Categories"),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8,8,0,0),
+                      child: Text("Categories",style: GoogleFonts.metrophobic( fontSize: 20 ,fontWeight: FontWeight.w600),),
+                    ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 100,
@@ -122,7 +125,7 @@ class _HomeState extends State<Home> {
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: Colors.purple,
+                                    color: Colors.deepPurple[100],
                                 borderRadius: BorderRadius.circular(12)),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -130,12 +133,12 @@ class _HomeState extends State<Home> {
                                     children: [
                                       Icon(
                                         Icons.architecture,
-                                        color: Colors.purpleAccent,size: 32,
+                                        color: Colors.deepPurple,size: 32,
                                       ),
                                       Text(
                                         "Local handicrafts",
                                         style: GoogleFonts.lato(
-                                            color: Colors.purpleAccent),
+                                            color: Colors.deepPurple),
                                       )
                                     ],
                                   ),
@@ -144,14 +147,40 @@ class _HomeState extends State<Home> {
                             );
                           }),
                     ),
-                    Text("Recommended"),
-                    Row(children: [
-                      Expanded(flex: 1,child: Image(image: NetworkImage("url"))),
-                      Expanded(flex: 3,child: Column(children: [
-                        Text("Title"),
-                        Text("SubHeading")
-                      ],))
-                    ],)
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8.0,8,0,0),
+                      child: Text("Recommended",style: GoogleFonts.metrophobic( fontSize: 20 ,fontWeight: FontWeight.w600)),
+                    ),
+                    Padding(
+                      padding:
+                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                      child: InkWell(onTap: (){
+                      //  Navigator.push(context, MaterialPageRoute(builder: (context)=>Messages()));
+                      },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: Colors.white),
+                          child: Row(
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: CircleAvatar(
+                                    radius: 32,
+                                    backgroundImage: NetworkImage(
+                                        "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80")),
+                              ),
+                              Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Heading",style: GoogleFonts.metrophobic(fontWeight: FontWeight.bold),),
+                                  Text("Latest message ...",style: GoogleFonts.metrophobic(),)
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 );
               })),
