@@ -25,6 +25,7 @@ class _ViewProductState extends State<ViewProduct> {
   Map data={"price":"","description":"","imgURL":"","title":""};
   int qty=1;
   String name = "";
+  bool loading = true;
   FirebaseAuth _auth = FirebaseAuth.instance;
   final messageController = TextEditingController();
   @override
@@ -50,11 +51,12 @@ class _ViewProductState extends State<ViewProduct> {
     setState(() {
       data=ldata;
       name=userInfo[0]['name'];
+      loading=false;
     });
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading==true?Scaffold(body: SafeArea(child: Center(child: CircularProgressIndicator(),),),) :Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
           child: Column(
@@ -139,6 +141,12 @@ IconButton(onPressed: (){
                   style: GoogleFonts.metrophobic(color: Colors.grey),
                 ),
               ),
+              TextButton(onPressed: (){
+
+              }, child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Colors.deepPurple[100]),child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Buy Now",style: GoogleFonts.metrophobic(color: Colors.deepPurple,fontSize: 16),),
+              ) ,))
             ],
           ),
           SizedBox(

@@ -48,6 +48,8 @@ dependencies:
   firebase_storage: ^11.0.16
   calc_lat_long: ^1.0.12
   intl: ^0.17.0
+  google_maps_flutter: ^2.2.5
+  document_analysis: ^0.1.2
 dependency_overrides:
   modal_bottom_sheet: ^3.0.0-pre
 dev_dependencies:

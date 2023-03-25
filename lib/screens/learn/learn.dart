@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wastedtalent/widgets/bottom_app_nav.dart';
 
+import '../../services/learn/getWorkshops.dart';
 import '../profile/profile.dart';
 import 'addEvent.dart';
 
@@ -13,6 +15,27 @@ class Learn extends StatefulWidget {
 }
 
 class _LearnState extends State<Learn> {
+
+  FirebaseAuth? _auth;
+  List products = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _auth = FirebaseAuth.instance;
+    //_auth!.signOut();
+    init_wrapper();
+    // _user = _auth!.currentUser;
+  }
+
+  init_wrapper() async {
+    print("this is running");
+    var lproducts = await getWorkshops();
+    print(lproducts);
+    setState(() {
+      products = lproducts;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -124,7 +147,7 @@ class _LearnState extends State<Learn> {
               body: Padding(
                 padding: const EdgeInsets.only(top:8.0),
                 child: ListView.builder(
-                    itemCount: 2,
+                    itemCount: products.length,
                     itemBuilder: (context, int index) {
                       return Padding(
                         padding:
@@ -143,22 +166,14 @@ class _LearnState extends State<Learn> {
                             ],
                                 borderRadius: BorderRadius.circular(12),
                                 color: Colors.white),
-                            child: Row(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: CircleAvatar(
-                                      radius: 32,
-                                      backgroundImage: NetworkImage(
-                                          "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80")),
-                                ),
-                                Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Heading",style: GoogleFonts.metrophobic(fontWeight: FontWeight.bold),),
-                                    Text("Latest message ...",style: GoogleFonts.metrophobic(),)
-                                  ],
-                                )
-                              ],
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(products[index]['name'],style: GoogleFonts.metrophobic(fontWeight: FontWeight.bold),),
+                                  Text(products[index]['dateTime'],style: GoogleFonts.metrophobic(),)
+                                ],
+                              ),
                             ),
                           ),
                         ),

@@ -369,7 +369,7 @@ class _HomeState extends State<Home> {
                               style: GoogleFonts.metrophobic(
                                   fontSize: 20, fontWeight: FontWeight.w600)),
                         ),
-                        Padding(
+                 /*       Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 16),
                           child: InkWell(
@@ -518,7 +518,7 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                           ),
-                        ),
+                        ),*/
                       ]+recommendations,
                     );
                   })),
