@@ -1,8 +1,15 @@
 import 'dart:convert';
+import 'dart:io';
+
+import 'package:async/async.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:path/path.dart'as path;
+import 'package:http/http.dart' as http;
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wastedtalent/models/backendUrl.dart';
 import 'package:wastedtalent/models/categories.dart';
 import 'package:wastedtalent/screens/home/search.dart';
 import 'package:wastedtalent/screens/notifications.dart';
@@ -21,7 +28,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<SingleChildRenderObjectWidget> recommendations = [];
   FirebaseAuth _auth = FirebaseAuth.instance;
-
+  TextEditingController Search = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -267,9 +274,9 @@ class _HomeState extends State<Home> {
                                 padding: const EdgeInsets.only(left: 32.0),
                                 child: Row(
                                   children: [
-                                    const Expanded(
+                                     Expanded(
                                       flex: 3,
-                                      child: TextField(
+                                      child: TextField(controller: Search,
                                         decoration: InputDecoration(
                                           labelText: 'Search for any item',
                                           border: UnderlineInputBorder(
@@ -284,20 +291,33 @@ class _HomeState extends State<Home> {
                                         ),
                                       ),
                                     ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: TextButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ExploreSearch()));
-                                          },
-                                          child: const Icon(
-                                            Icons.search,
-                                            color: Colors.grey,
-                                          )),
+
+                                    Row(mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        TextButton(
+                                            onPressed: () async {
+                                              final picker =
+                                                  await FilePicker.platform.pickFiles();
+                                              final path = picker?.files.single.path;
+                                              uploadImage(File(path!));
+                                            },
+                                            child: const Icon(
+                                              Icons.camera,
+                                              color: Colors.grey,
+                                            )),
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ExploreSearch(search:Search.text)));
+                                            },
+                                            child: const Icon(
+                                              Icons.search,
+                                              color: Colors.grey,
+                                            )),
+                                      ],
                                     )
                                   ],
                                 ),
@@ -523,5 +543,47 @@ class _HomeState extends State<Home> {
                     );
                   })),
         ));
+  }
+  upload(File imageFile) async {
+    // open a bytestream
+    var stream = new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
+    // get file length
+    var length = await imageFile.length();
+
+    // string to uri
+    var uri = Uri.parse("http://localhost:5000/");
+
+    // create multipart request
+    var request = new http.MultipartRequest("POST", uri);
+
+    // multipart that takes file
+    var multipartFile = new http.MultipartFile('file', stream, length,
+        filename: path.basename(imageFile.path));
+
+    // add file to multipart
+    request.files.add(multipartFile);
+
+    // send
+    var response = await request.send();
+    print(response.statusCode);
+
+    // listen for response
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
+  }
+
+  uploadImage(File imageFile) async {
+    final request = http.MultipartRequest("POST", Uri.parse(backendUrl+"/uploadImage"));
+    final headers = {"Content-type":"multipart/form-data"};
+    request.files.add(http.MultipartFile("image", imageFile!.readAsBytes().asStream(), imageFile.lengthSync(),filename: imageFile!.path.split("/").last));
+  request.headers.addAll(headers);
+  final response = await request.send();
+  http.Response res = await http.Response.fromStream(response);
+
+  final resJson = jsonDecode(res.body);
+  var message = resJson['message'];
+  print(message);
+  Navigator.push(context, MaterialPageRoute(builder: (builder)=>ExploreSearch(imageSearch:message)));
   }
 }

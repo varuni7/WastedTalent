@@ -4,9 +4,14 @@
 
 import 'package:firebase_database/firebase_database.dart';
 
-buy(uid,qty,customer_uid){
+buy(uid,qty,customer_uid,product_uid){
 
   DatabaseReference ref =
   FirebaseDatabase.instance.ref('users/'+uid+'/active_orders').push();
-  ref.set({});
+  ref.set({
+    "productuid":product_uid,
+    "customeruid":customer_uid,
+    "Quantity":qty,
+    "createdAt":DateTime.now().millisecondsSinceEpoch
+  });
 }

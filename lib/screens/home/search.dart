@@ -1,16 +1,20 @@
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wastedtalent/models/backendUrl.dart';
 import 'package:wastedtalent/screens/profile/viewProduct.dart';
 import 'package:wastedtalent/services/product/getProduct.dart';
 
 import '../../services/chat/getMessages.dart';
 
 class ExploreSearch extends StatefulWidget {
-  const ExploreSearch({Key? key}) : super(key: key);
+  final search;
+  final imageSearch;
+  const ExploreSearch({Key? key,this.search,this.imageSearch}) : super(key: key);
 
   @override
   State<ExploreSearch> createState() => _ExploreSearchState();
@@ -19,7 +23,7 @@ class ExploreSearch extends StatefulWidget {
 class _ExploreSearchState extends State<ExploreSearch> {
   FirebaseAuth? _auth;
   List products = [];
-
+ bool loading = true;
   @override
   void initState() {
     super.initState();
@@ -31,16 +35,29 @@ class _ExploreSearchState extends State<ExploreSearch> {
 
   init_wrapper() async {
     print("this is running");
-    var lproducts = await getAllProduct();
+    if(widget.search==null){
+      loading=false;
+    }
+   /* var lproducts = await getAllProduct();
     print(lproducts);
     setState(() {
       products = lproducts;
+    });*/
+    var response = await http.post(Uri.parse(backendUrl+"/search"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({'search':widget.search})
+    );
+    print(jsonDecode(response.body)['message']);
+
+    setState(() {
+      products = jsonDecode(response.body)['message'];
+      loading=false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading==true? Scaffold(body: Center(child: CircularProgressIndicator(),),):Scaffold(
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
@@ -81,7 +98,7 @@ class _ExploreSearchState extends State<ExploreSearch> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 8, 0, 0),
               child: Text(
-                "Results for 'mjkcd dkc dnvjf':",
+                widget.search==null?"Image Search":"Results for '"+widget.search+"':",
                 style: GoogleFonts.metrophobic(
                     fontSize: 24, fontWeight: FontWeight.bold),
               ),
@@ -89,14 +106,14 @@ class _ExploreSearchState extends State<ExploreSearch> {
             Expanded(
               child: ListView.builder(
                   physics: BouncingScrollPhysics(),
-                  itemCount: products.length,
+                  itemCount: widget.search==null?3:products.length,
                   itemBuilder: (context, int index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 8.0, horizontal: 16),
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(
+                        /*  Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (builder) => ViewProduct(
@@ -104,7 +121,8 @@ class _ExploreSearchState extends State<ExploreSearch> {
                                         uid: products[index][0]["uid"],
                                         id: products[index][1],
                                       )));
-                        },
+                        */
+                          },
                         child: Container(
                           decoration: BoxDecoration(
                               boxShadow: [
@@ -129,8 +147,8 @@ class _ExploreSearchState extends State<ExploreSearch> {
                                         onTap: () {
                                           showImageViewer(
                                               context,
-                                              Image.network(
-                                                      "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80")
+                                              Image.asset( widget.search==null?'data/wikiarts/wikiarts/'+widget.imageSearch[index]:
+                                                      products[index]["content"].toString().substring(2))
                                                   .image,
                                               swipeDismissible: false);
                                         },
@@ -138,9 +156,7 @@ class _ExploreSearchState extends State<ExploreSearch> {
                                             height: 64,
                                             width: 64,
                                             fit: BoxFit.cover,
-                                            image: NetworkImage(jsonDecode(
-                                                    products[index][0]
-                                                        ['imgURL'])[0]
+                                            image: AssetImage(widget.search==null?'data/wikiarts/wikiarts/'+widget.imageSearch[index]:products[index]["content"].toString().substring(2)
                                                 .toString())),
                                       ),
                                     )),
@@ -149,12 +165,14 @@ class _ExploreSearchState extends State<ExploreSearch> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    products[index][0]["title"],
+                                    //products[index][0]["title"],
+                                    "Some title",
                                     style: GoogleFonts.metrophobic(
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    products[index][0]["description"],
+                                    //products[index][0]["description"],
+                                    "Some description",
                                     style: GoogleFonts.metrophobic(),
                                   )
                                 ],
