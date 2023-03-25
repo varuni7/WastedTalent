@@ -25,6 +25,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  calc_lat_long:
+    dependency: "direct main"
+    description:
+      name: calc_lat_long
+      sha256: "199b0aca8090ba7b41938510cb6c76f94f88116f7d0b5d38f5992bbc831ebc0f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.12"
   carousel_slider:
     dependency: "direct main"
     description:

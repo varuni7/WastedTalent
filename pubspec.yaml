@@ -46,6 +46,7 @@ dependencies:
   carousel_slider: ^4.2.1
   file_picker: ^5.2.6
   firebase_storage: ^11.0.16
+  calc_lat_long: ^1.0.12
   intl: ^0.17.0
 dependency_overrides:
   modal_bottom_sheet: ^3.0.0-pre
