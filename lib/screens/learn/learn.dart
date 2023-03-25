@@ -1,47 +1,34 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:wastedtalent/screens/chat/messages.dart';
-import 'package:wastedtalent/services/chat/getChatUsers.dart';
+import 'package:wastedtalent/widgets/bottom_app_nav.dart';
 
-import '../../widgets/bottom_app_nav.dart';
 import '../profile/profile.dart';
+import 'addEvent.dart';
 
-class Chat extends StatefulWidget {
-  const Chat({Key? key}) : super(key: key);
+class Learn extends StatefulWidget {
+  const Learn({Key? key}) : super(key: key);
 
   @override
-  State<Chat> createState() => _ChatState();
+  State<Learn> createState() => _LearnState();
 }
 
-class _ChatState extends State<Chat> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  List users = [];
-  @override
-  void initState() {
-    super.initState();
-    _auth = FirebaseAuth.instance;
-    //_auth!.signOut();
-    init_wrapper();
-    // _user = _auth!.currentUser;
-  }
-
-  init_wrapper() async {
-    print("this is running");
-    users = await getChatUsers(_auth.currentUser?.uid);
-    setState(() {
-      users = users;
-    });
-  }
+class _LearnState extends State<Learn> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      bottomNavigationBar: BottomAppNav(index: 1),
-      body: NestedScrollView(
-          headerSliverBuilder: (context, innerboxScrolled) => [
+          bottomNavigationBar: BottomAppNav(index: 3),
+          body: NestedScrollView(
+              headerSliverBuilder: (context, innerboxScrolled) => [
                 SliverAppBar(backgroundColor: Colors.white70,
-                  actions: [
+                  actions: [                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddEvent()));
+                      },
+                      icon: Icon(Icons.add)),
                     IconButton(
                         onPressed: () {
                           Navigator.push(
@@ -76,7 +63,7 @@ class _ChatState extends State<Chat> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 18.0),
                             child: Text(
-                              'Chats',
+                              'Learn',
                               style: GoogleFonts.metrophobic(
                                   color: Colors.white,
                                   fontSize: 32,
@@ -89,7 +76,7 @@ class _ChatState extends State<Chat> {
                           right: 0,
                           child: Padding(
                             padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Container(
                               height: 54,
                               decoration: BoxDecoration(
@@ -103,7 +90,7 @@ class _ChatState extends State<Chat> {
                                       flex: 3,
                                       child: TextField(
                                         decoration: InputDecoration(
-                                          labelText: 'Search for any item',
+                                          labelText: 'Search for any course',
                                           border: UnderlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: Color(0xff564787))),
@@ -134,53 +121,50 @@ class _ChatState extends State<Chat> {
                   ),
                 ),
               ],
-          body: Padding(
-            padding: const EdgeInsets.only(top:8.0),
-            child: ListView.builder(
-                itemCount: users.length,
-                itemBuilder: (context, int index) {
-                  return Padding(
-                    padding:
+              body: Padding(
+                padding: const EdgeInsets.only(top:8.0),
+                child: ListView.builder(
+                    itemCount: 2,
+                    itemBuilder: (context, int index) {
+                      return Padding(
+                        padding:
                         const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-                    child: InkWell(onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Messages(
-                        url: users[index][0][1],
-                        uid: users[index][1],
-                        name: users[index][0][0]['name'],
-                      )));
-                    },
-                      child: Container(
-                        decoration: BoxDecoration(boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade300,
-                            spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: const Offset(0, 5),
-                          ),
-                        ],
-                            borderRadius: BorderRadius.circular(12),
-                            color: Colors.white),
-                        child: Row(
-                          children: [
-                             Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: CircleAvatar(
-                                  radius: 32,
-                                  backgroundImage: NetworkImage(
-                                      users[index][0][1])),
-                            ),
-                            Column(crossAxisAlignment: CrossAxisAlignment.start,
+                        child: InkWell(onTap: (){
+                        //  Navigator.push(context, MaterialPageRoute(builder: (context)=>Messages()));
+                        },
+                          child: Container(
+                            decoration: BoxDecoration(boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.shade300,
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.white),
+                            child: Row(
                               children: [
-                                Text(users[index][0][0]['name'],style: GoogleFonts.metrophobic(fontWeight: FontWeight.bold),),
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: CircleAvatar(
+                                      radius: 32,
+                                      backgroundImage: NetworkImage(
+                                          "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80")),
+                                ),
+                                Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Heading",style: GoogleFonts.metrophobic(fontWeight: FontWeight.bold),),
+                                    Text("Latest message ...",style: GoogleFonts.metrophobic(),)
+                                  ],
+                                )
                               ],
-                            )
-                          ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  );
-                }),
-          )),
-    ));
+                      );
+                    }),
+              )),
+        ));
   }
 }

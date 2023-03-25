@@ -19,7 +19,7 @@ class _InitializerWidgetState extends State<InitializerWidget> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      backgroundColor: Color(0xffFEFCF3),
+      backgroundColor: Colors.grey.shade100,
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -29,15 +29,28 @@ class _InitializerWidgetState extends State<InitializerWidget> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    "Choose language",
-                    style: GoogleFonts.alata(
-                      fontSize: 26,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: Text(
+                      "Welcome To Wasted Talent",
+                      style: GoogleFonts.metrophobic(
+                        fontSize: 26,color: Colors.deepPurple[700],fontWeight: FontWeight.bold
+                      ),
+                      textAlign: TextAlign.start,
                     ),
-                    textAlign: TextAlign.start,
                   ),
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(24),
+                      child: SizedBox(width:400 ,height: 200,
+                        child: const Image(
+                            height: 200,
+                            width: 400,
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                                "https://inc42.com/wp-content/uploads/2023/03/ecommerce-feature-760x570.png")),
+                      )),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 32, 0, 0),
                     child: TextButton(
@@ -55,7 +68,7 @@ class _InitializerWidgetState extends State<InitializerWidget> {
                       ),
                       child: Ink(
                         decoration: const BoxDecoration(
-                          color: Color(0xff12253A),
+                          color: Colors.deepPurple,
                           borderRadius:
                           BorderRadius.all(Radius.circular(10.0)),
                         ),
@@ -69,9 +82,9 @@ class _InitializerWidgetState extends State<InitializerWidget> {
                             padding:
                             const EdgeInsets.symmetric(vertical: 8.0),
                             child: Text(
-                              'login',
+                              'Login',
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.alata(
+                              style: GoogleFonts.metrophobic(
                                   color: Colors.white, fontSize: 24),
                             ),
                           ),

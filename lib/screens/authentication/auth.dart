@@ -8,7 +8,7 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:wastedtalent/screens/authentication/personalInfo.dart';
 
-import '../home.dart';
+import '../home/home.dart';
 import 'init.dart';
 
 enum ScreenState { MOBILE_NO_STATE, OTP_STATE }
@@ -68,7 +68,17 @@ class _AuthenticateState extends State<Authenticate> {
       child: Column(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height / 12,
+            height: MediaQuery.of(context).size.height / 4,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 32,bottom: 32.0),
+            child: Text(
+              "Login",
+              style: GoogleFonts.metrophobic(
+                  fontSize: 26,color: Colors.deepPurple[700],fontWeight: FontWeight.bold
+              ),
+              textAlign: TextAlign.start,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -87,17 +97,21 @@ class _AuthenticateState extends State<Authenticate> {
                   width: 250,
                   child: TextFormField(
                     keyboardType: TextInputType.number,
-                    style: GoogleFonts.alata(color: Colors.black),
+                    style: GoogleFonts.metrophobic(color: Colors.black),
                     decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color(0xffFDF2C9),
-                        focusColor: Color(0xffFDF2C9),
-                        hoverColor: Color(0xffFDF2C9),
-                        focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff12253A))),
-                        labelText: "enter_phone_no",
-                        labelStyle: GoogleFonts.alata(
-                            fontSize: 16, color: Color(0xff12253A))),
+                      hintText: "Enter Phone no",
+
+                      hintStyle: TextStyle(color: Colors.grey.shade600),
+                      filled: true,
+                      fillColor: Colors.grey.shade100,
+                      contentPadding: EdgeInsets.all(8),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(
+                              color: Colors.grey.shade100
+                          )
+                      ),
+                    ),
                     validator: (val) {
                       if (val == null || val.length != 10) {
                         return "Please enter a valid moble number.";
@@ -170,8 +184,8 @@ class _AuthenticateState extends State<Authenticate> {
                         (states) => EdgeInsets.zero),
               ),
               child: Ink(
-                decoration: const BoxDecoration(
-                  color: Color(0xff12253A),
+                decoration:  BoxDecoration(
+                  color: Colors.deepPurple.shade800,
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
                 child: Container(
@@ -182,10 +196,10 @@ class _AuthenticateState extends State<Authenticate> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
-                      'get_OTP',
+                      'Get OTP',
                       textAlign: TextAlign.center,
                       style:
-                      GoogleFonts.alata(color: Colors.white, fontSize: 24),
+                      GoogleFonts.metrophobic(color: Colors.white, fontSize: 24),
                     ),
                   ),
                 ),
@@ -221,12 +235,22 @@ class _AuthenticateState extends State<Authenticate> {
           //     }
           //   },
           // ),
+          Padding(
+            padding: const EdgeInsets.only(top: 32,bottom: 32.0),
+            child: Text(
+              "Enter OTP",
+              style: GoogleFonts.metrophobic(
+                  fontSize: 26,color: Colors.deepPurple[700],fontWeight: FontWeight.bold
+              ),
+              textAlign: TextAlign.start,
+            ),
+          ),
           OTPTextField(
-            otpFieldStyle: OtpFieldStyle(focusBorderColor: Color(0xff12253A)),
+            otpFieldStyle: OtpFieldStyle(focusBorderColor:  Colors.deepPurple.shade800),
             length: 6,
             width: MediaQuery.of(context).size.width,
             fieldWidth: 40,
-            style: GoogleFonts.alata(fontSize: 17, color: Color(0xff12253A)),
+            style: GoogleFonts.metrophobic(fontSize: 17, color:  Colors.deepPurple.shade800),
             textFieldAlignment: MainAxisAlignment.spaceAround,
             fieldStyle: FieldStyle.underline,
             onCompleted: (pin) {
@@ -248,8 +272,8 @@ class _AuthenticateState extends State<Authenticate> {
                         (states) => EdgeInsets.zero),
               ),
               child: Ink(
-                decoration: const BoxDecoration(
-                  color: Color(0xff12253A),
+                decoration:  BoxDecoration(
+                  color:  Colors.deepPurple.shade800,
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
                 child: Container(
@@ -260,10 +284,10 @@ class _AuthenticateState extends State<Authenticate> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
-                      'verify',
+                      'Verify',
                       textAlign: TextAlign.center,
                       style:
-                      GoogleFonts.alata(color: Colors.white, fontSize: 24),
+                      GoogleFonts.metrophobic(color: Colors.white, fontSize: 24),
                     ),
                   ),
                 ),

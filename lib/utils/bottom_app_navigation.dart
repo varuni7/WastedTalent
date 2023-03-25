@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wastedtalent/screens/analytics/analytics.dart';
 import 'package:wastedtalent/screens/chat/chat.dart';
+import 'package:wastedtalent/screens/learn/learn.dart';
 import 'package:wastedtalent/screens/profile/profile.dart';
-import '../screens/home.dart';
+import '../screens/home/home.dart';
 
 Future<void> bottom_navigation(int index, BuildContext context) async {
   if (index == 0) {
@@ -15,8 +17,8 @@ Future<void> bottom_navigation(int index, BuildContext context) async {
     Navigator.push(context, MaterialPageRoute(builder: (builder)=>Chat()));
   }
   else if (index == 2) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Analytics()));
   } else if (index == 3) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Profile()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Learn()));
   }
 }

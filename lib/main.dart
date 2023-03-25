@@ -9,7 +9,7 @@ import 'package:wastedtalent/screens/authentication/personalInfo.dart';
 import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'screens/home.dart';
+import 'screens/home/home.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -74,7 +74,10 @@ class _SplashScreenState extends State<SplashScreen> {
     print(_user?.uid);
     if (_user?.uid != null) {
       String? uid = _user?.uid;
+      print("Waiting");
+    //  Navigator.push(context, MaterialPageRoute(builder: (builder)=>Home()));
       final snapshot = await FirebaseDatabase.instance.ref('users/$uid').get();
+      print("Done");
       print(snapshot.exists);
       if (snapshot.exists) {
       //  SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
@@ -118,7 +121,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       padding:
                       const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
                       child: Text(
-                        "Ya",
+                        "Wt",
                         style: GoogleFonts.dancingScript(
                             color: Colors.white, fontSize: 64),
                       ),
@@ -127,7 +130,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
                     child: Text(
-                      "app_name",
+                      "Wasted Talent",
                       style:
                       GoogleFonts.alata(color: Color(0xff12253A), fontSize: 30),
                     ),

@@ -41,7 +41,7 @@ class _BottomAppNavState extends State<BottomAppNav> {
               label: " "),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.perm_identity,
+                Icons.school,
                 color: widget.index==3?activeColor:color,
               ),
               label: " "),
