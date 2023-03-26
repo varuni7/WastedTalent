@@ -110,7 +110,7 @@ class _ViewProductState extends State<ViewProduct> {
                                       Profile(uid: widget.uid)));
                         },
                         child: Text(
-                          name,
+                          name,textAlign: TextAlign.center,
                           style: GoogleFonts.metrophobic(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),

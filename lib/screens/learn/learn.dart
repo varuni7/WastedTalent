@@ -6,6 +6,7 @@ import 'package:wastedtalent/widgets/bottom_app_nav.dart';
 import '../../services/learn/getWorkshops.dart';
 import '../profile/profile.dart';
 import 'addEvent.dart';
+import 'agora.dart';
 
 class Learn extends StatefulWidget {
   const Learn({Key? key}) : super(key: key);
@@ -153,7 +154,7 @@ class _LearnState extends State<Learn> {
                         padding:
                         const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
                         child: InkWell(onTap: (){
-                        //  Navigator.push(context, MaterialPageRoute(builder: (context)=>Messages()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>CallCard()));
                         },
                           child: Container(
                             decoration: BoxDecoration(boxShadow: [

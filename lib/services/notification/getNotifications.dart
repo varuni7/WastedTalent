@@ -17,4 +17,7 @@ getNotifications(uid) async{
       ldata = ldata.reversed.toList();
     return ldata;
   }
+  else{
+    return [];
+  }
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wastedtalent/screens/profile/addProduct.dart';
 import 'package:wastedtalent/screens/profile/viewProduct.dart';
@@ -116,6 +117,23 @@ class ProfileState extends State<Profile> {
                             style: GoogleFonts.metrophobic(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12.0),
+                            child: Row(children: const [
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 4.0),
+                                child: Icon(FontAwesomeIcons.instagram),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 4.0),
+                                child: Icon(FontAwesomeIcons.facebook),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 4.0),
+                                child: Icon(FontAwesomeIcons.whatsapp),
+                              )
+                            ],),
+                          )
                         ],
                       ),
                     )

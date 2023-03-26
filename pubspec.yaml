@@ -51,6 +51,11 @@ dependencies:
   google_maps_flutter: ^2.2.5
   document_analysis: ^0.1.2
   http: ^0.13.5
+  font_awesome_flutter: ^10.4.0
+  fl_chart: ^0.61.0
+  agora_rtc_engine:
+  permission_handler:
+  agora_uikit:
 dependency_overrides:
   modal_bottom_sheet: ^3.0.0-pre
 dev_dependencies:

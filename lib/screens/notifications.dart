@@ -13,6 +13,7 @@ class Notifications extends StatefulWidget {
 class _NotificationsState extends State<Notifications> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   List notifications = [];
+  bool loading=false;
   @override
   void initState() {
     super.initState();
@@ -25,11 +26,12 @@ class _NotificationsState extends State<Notifications> {
      List lnotifications=await getNotifications(_auth.currentUser?.uid);
      setState(() {
        notifications = lnotifications;
+       loading=true;
      });
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return bool==true?Scaffold(body: Center(child: CircularProgressIndicator(),),):Scaffold(
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
